@@ -9,15 +9,6 @@ const HomePage = () => {
   return (
     <div>
       <h1>This is Homepage</h1>
-      <details>
-        <summary className="list-none">This is it</summary>
-        <div className="grid">
-          <description>This is a</description>
-          <description>This is b</description>
-          <description>This is c</description>
-          <description>This is d</description>
-        </div>
-      </details>
     </div>
   );
 };
