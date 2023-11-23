@@ -1,0 +1,85 @@
+.loginFormController {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
+  place-items: center;
+  padding: 2px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 1px solid var(--en-primary-color);
+  height: 40px;
+  user-select: none;
+}
+.loginFormController > p {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  border-radius: 4px;
+  transition: all 0.5s;
+}
+
+.loginFormControllerActive {
+  background-color: var(--en-primary-color);
+  color: var(--en-white-color);
+  transition: all 0.5s;
+}
+
+.loginForm::before {
+  content: "This is not active, please use Google or github instead";
+  width: 100%;
+  height: 100%;
+  background-color: rgba(150, 150, 150, 0.89);
+  position: absolute;
+  z-index: 5;
+  text-align: center;
+  color: #ffffff;
+  display: grid;
+  place-content: center;
+}
+.loginForm {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  border: 6px solid transparent;
+  background: transparent;
+  background-clip: border-box;
+  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.4);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.loginForm:hover {
+  box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.4);
+  transition: all 0.2s ease;
+}
+.loginForm > input[type="text"]:focus ~ .loginForm {
+  box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.4);
+  transition: all 0.2s ease;
+}
+
+.login-icons {
+  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.4);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.login-icons:hover {
+  box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.4);
+  transition: all 0.2s ease;
+  animation: animate-login-icon 2s ease forwards;
+}
+
+@keyframes animate-login-icon {
+  0% {
+    scale: 100%;
+    transform: rotateZ(0deg);
+  }
+  50% {
+    scale: 110%;
+  }
+  100% {
+    scale: 100%;
+    transform: rotateZ(360deg);
+  }
+}

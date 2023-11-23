@@ -1,0 +1,5 @@
+.all_category_product_card_container {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+}

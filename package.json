@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "json-server": "json-server --watch db.json"
   },
   "dependencies": {
     "@fortawesome/free-brands-svg-icons": "^6.4.2",
@@ -16,10 +17,18 @@
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
     "antd": "^5.10.2",
+    "firebase": "^10.6.0",
     "heroicons": "^2.0.18",
+    "html2canvas": "^1.4.1",
+    "json-server": "^0.17.4",
+    "mongodb": "^6.2.0",
     "next": "13.5.6",
+    "next-auth": "^4.24.5",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-firebase-hooks": "^5.1.1",
+    "react-simple-star-rating": "^5.1.7",
+    "sharp": "^0.32.6"
   },
   "devDependencies": {
     "autoprefixer": "^10",

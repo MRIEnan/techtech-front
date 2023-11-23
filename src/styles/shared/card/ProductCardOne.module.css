@@ -1,0 +1,81 @@
+.card_container {
+  width: 300px;
+  display: inline-block;
+  margin: 5px;
+  padding: 5px;
+  background-color: #ffffff;
+  border-radius: 6px;
+  box-sizing: content-box;
+  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  z-index: 1;
+}
+
+.card_category_logo_holder {
+  position: absolute;
+  background-color: #ffffff;
+  width: 40px;
+  aspect-ratio: 4/4;
+  top: 0px;
+  left: 0px;
+  border-radius: 6px;
+  box-sizing: border-box;
+  box-shadow: -5px -5px 10px 3px rgba(204, 52, 21, 0.192),
+    5px 5px 10px 3px rgba(21, 204, 204, 0.336), 0 0 20px 5px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+  padding: 1px;
+  display: grid;
+  place-items: center;
+}
+.product_category_tooltip {
+  position: absolute;
+  top: 0px;
+  left: 42px;
+  height: 40px;
+  width: 0px;
+  overflow: hidden;
+  background-color: transparent;
+  display: inline-grid;
+  justify-content: start;
+  place-items: center;
+  transition: width 2s ease;
+  transform-origin: left;
+  grid-template-columns: max-content;
+}
+
+.card_category_logo_holder:hover > .product_category_tooltip {
+  width: 240px;
+  transform: width 2s;
+}
+.product_category_tooltip > h1 {
+  background-color: #ffffff;
+  padding: 2px 16px;
+  border-radius: 6px;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.3);
+  border-radius: 6px;
+  background-color: rgba(255, 255, 255, 1);
+  word-break: keep-all;
+}
+.card_category_logo_holder > img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+.card_product_image_holder {
+  background-color: transparent;
+  width: 100%;
+  aspect-ratio: 16/11;
+  display: inline-block;
+  border: 2px solid black;
+  border-radius: 6px;
+}
+.card_product_image_holder > img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}

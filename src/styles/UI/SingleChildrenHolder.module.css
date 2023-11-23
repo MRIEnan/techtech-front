@@ -1,0 +1,11 @@
+.single-children-holder-main-outer-container {
+  background-color: var(--en-white-color);
+  width: calc(100% - 10px);
+  margin: auto;
+  margin-top: 10px;
+  border-radius: 6px;
+  overflow: hidden;
+  padding: 5px;
+  box-sizing: border-box;
+  height: auto;
+}
