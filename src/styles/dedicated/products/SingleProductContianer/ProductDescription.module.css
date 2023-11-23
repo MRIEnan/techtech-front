@@ -1,0 +1,14 @@
+.product-description-holder {
+  width: 100%;
+  max-width: 1000px;
+  background-color: transparent;
+  height: auto;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: justify;
+}
+
+.product-description-holder > p {
+  font-size: 1.3rem;
+}

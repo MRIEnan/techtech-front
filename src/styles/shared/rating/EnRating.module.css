@@ -1,0 +1,14 @@
+.rating-container {
+  display: flex;
+  justify-content: center;
+  width: 100px;
+}
+
+.c-star {
+  /* width: var(--size);
+  height: var(--size); */
+  fill: lightgrey;
+}
+.active {
+  fill: #fed94b;
+}

@@ -1,13 +1,27 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url("./root.css");
 
-/* :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+body {
+  width: 100%;
+  max-width: 1400px;
+  margin: auto;
+  background: #f2f4f8;
 }
 
+/* 
+:root {
+  --en-foreground-rgb: 0, 0, 0;
+  --en-background-start-rgb: 214, 219, 220;
+  --en-background-end-rgb: 255, 255, 255;
+
+  --en-bg-btn-primary: #1f2937;
+  --en-bg-btn-primary-hover: #07090c;
+  --en-font-btn-primary: #e5e7eb;
+}
+
+/* 
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;

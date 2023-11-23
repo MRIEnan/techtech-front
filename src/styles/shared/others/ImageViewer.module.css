@@ -1,0 +1,12 @@
+.image-viewer-main-container {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  aspect-ratio: 11/5;
+  background: var(--en-main-bg-primary);
+}
+.image-viewer-main-container > img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}

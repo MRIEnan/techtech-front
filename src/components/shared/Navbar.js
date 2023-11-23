@@ -1,15 +1,20 @@
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import PopOverMenuItem from "./PopOverMenuItem";
 import Image from "next/image";
 import logoImageOne from "@/assets/images/techtech_logo_One.png";
 import Link from "next/link";
-import useAllData from "@/pages/hooks/useAllData";
+import useAllData from "@/hooks/useAllData";
+import { useSession, signOut } from "next-auth/react";
+import auth from "@/firebase/firebase.auth";
+import { useSignOut } from "react-firebase-hooks/auth";
+import { useRouter } from "next/navigation";
 
-const navigation = [
+const navItemsOne = [
   { name: "PC Builder", href: "/make-pc", current: false },
-  //   { name: "Team", href: "#", current: false },
+  { name: "Home", href: "/", current: false },
+  // { name: "Team", href: "#", current: false },
   //   { name: "Projects", href: "#", current: false },
   //   { name: "Calendar", href: "#", current: false },
 ];
@@ -19,7 +24,56 @@ function classNames(...classes) {
 }
 
 export default function Navbar() {
-  const { navItems } = useAllData();
+  const router = useRouter();
+  const { navItems, apiRoutesNames, myUserHook, setMyUserHook, pcMakeInfos } =
+    useAllData();
+  const [showLogOut, setShowLogOut] = useState(false);
+  const { data: session } = useSession();
+
+  // sign out method : firebase
+  const [firebaseSignOut] = useSignOut(auth);
+  const handleFirebaseSignOut = () => {
+    firebaseSignOut(auth);
+  };
+
+  // sign out method : next
+  const handleSignOut = () => {
+    signOut();
+  };
+
+  const handleMainLogOutBtn = () => {
+    handleSignOut();
+    for (let k in myUserHook) {
+      delete myUserHook[k];
+    }
+  };
+
+  const handleBell = () => {
+    // handle onClick action of the bell icon
+    // console.log(myUserHook);
+    console.log(pcMakeInfos);
+  };
+  const handleNavRouting = (routeLink) => {
+    router.push(routeLink);
+  };
+
+  useEffect(() => {
+    if (
+      session &&
+      session.user &&
+      myUserHook &&
+      myUserHook.email !== session.user.email
+    ) {
+      setMyUserHook(session.user);
+      setShowLogOut(true);
+    } else if (myUserHook && !myUserHook.email) {
+      setShowLogOut(false);
+    }
+  }, [session]);
+
+  const handleImageClick = () => {
+    router.push("/");
+  };
 
   return (
     <Disclosure as="nav" className="bg-gray-800">
@@ -40,55 +94,40 @@ export default function Navbar() {
                 </Disclosure.Button>
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-                <div className="flex flex-shrink-0 items-center bg-white border rounded-[50%] p-1 ">
-                  <Link href={"/"}>
-                    <Image
-                      src={logoImageOne}
-                      alt="Your Company"
-                      height={40}
-                      width={40}
-                      style={{
-                        objectFit: "contain", // cover, contain, none
-                      }}
-                    />
-                  </Link>
+                <div
+                  onClick={handleImageClick}
+                  className="flex w-[40px] h-[40px] flex-shrink-0 items-center bg-white border rounded-[50%] p-1 hover:animate-spin"
+                >
+                  <Image
+                    src={logoImageOne}
+                    alt="Your Company"
+                    height={40}
+                    width={40}
+                    style={{
+                      objectFit: "contain", // cover, contain, none
+                    }}
+                  />
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
-                  {/* <div className="flex space-x-4">
-                    {navigation.map((item) => (
-                      <a
-                        key={item.name}
-                        href={item.href}
-                        className={classNames(
-                          item.current
-                            ? "bg-gray-900 text-white"
-                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                          "rounded-md px-3 py-2 text-sm font-medium"
-                        )}
-                        aria-current={item.current ? "page" : undefined}
-                      >
-                        {item.name}
-                      </a>
-                    ))}
-                  </div> */}
                   <div className="flex space-x-4 h-full">
                     <PopOverMenuItem
+                      apiRoutesNames={apiRoutesNames}
                       solutions={navItems?.computerAccessories}
                     />
-                    {navigation.map((item) => (
-                      <a
+                    {navItemsOne.map((item) => (
+                      <div
                         key={item.name}
-                        href={item.href}
+                        onClick={() => handleNavRouting(item.href)}
                         className={classNames(
                           item.current
                             ? "bg-gray-900 text-white"
                             : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                          "rounded-md px-3 py-2 text-sm font-medium grid items-center"
+                          "rounded-md px-3 py-2 text-sm font-medium grid items-center cursor-pointer"
                         )}
                         aria-current={item.current ? "page" : undefined}
                       >
                         {item.name}
-                      </a>
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -98,6 +137,7 @@ export default function Navbar() {
                 <button
                   type="button"
                   className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                  onClick={handleBell}
                 >
                   <span className="absolute -inset-1.5" />
                   <span className="sr-only">View notifications</span>
@@ -110,10 +150,12 @@ export default function Navbar() {
                     <Menu.Button className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="absolute -inset-1.5" />
                       <span className="sr-only">Open user menu</span>
-                      <img
+                      <Image
                         className="h-8 w-8 rounded-full"
+                        height={32}
+                        width={32}
                         src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                        alt=""
+                        alt="profile icon"
                       />
                     </Menu.Button>
                   </div>
@@ -129,43 +171,59 @@ export default function Navbar() {
                     <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <Menu.Item>
                         {({ active }) => (
-                          <a
-                            href="#"
+                          <div
+                            onClick={() => handleNavRouting("/profile")}
                             className={classNames(
                               active ? "bg-gray-100" : "",
                               "block px-4 py-2 text-sm text-gray-700"
                             )}
                           >
                             Your Profile
-                          </a>
+                          </div>
                         )}
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
-                          <a
-                            href="#"
+                          <div
+                            onClick={() => handleNavRouting("/setting")}
                             className={classNames(
                               active ? "bg-gray-100" : "",
                               "block px-4 py-2 text-sm text-gray-700"
                             )}
                           >
                             Settings
-                          </a>
+                          </div>
                         )}
                       </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <Link
-                            href="/login"
-                            className={classNames(
-                              active ? "bg-gray-100" : "",
-                              "block px-4 py-2 text-sm text-gray-700"
-                            )}
-                          >
-                            Sign In
-                          </Link>
-                        )}
-                      </Menu.Item>
+                      {!showLogOut && (
+                        <Menu.Item>
+                          {({ active }) => (
+                            <div
+                              onClick={() => handleNavRouting("/login")}
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm text-gray-700"
+                              )}
+                            >
+                              Sign In
+                            </div>
+                          )}
+                        </Menu.Item>
+                      )}
+                      {showLogOut && (
+                        <Menu.Item onClick={() => handleMainLogOutBtn()}>
+                          {({ active }) => (
+                            <div
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm text-gray-700"
+                              )}
+                            >
+                              Log out
+                            </div>
+                          )}
+                        </Menu.Item>
+                      )}
                     </Menu.Items>
                   </Transition>
                 </Menu>
@@ -174,12 +232,17 @@ export default function Navbar() {
           </div>
 
           <Disclosure.Panel className="sm:hidden">
-            <div className="space-y-1 px-2 pb-3 pt-2 h-full bg-orange-300">
-              {/* {navigation.map((item) => (
-                <a
+            <div className="space-y-1 px-2 pb-3 pt-2 h-full">
+              <PopOverMenuItem
+                classes={""}
+                apiRoutesNames={apiRoutesNames}
+                solutions={navItems?.computerAccessories}
+              />
+              {navItemsOne.map((item) => (
+                <div
                   key={item.name}
                   as="a"
-                  href={item.href}
+                  onClick={() => handleNavRouting(item.href)}
                   className={classNames(
                     item.current
                       ? "bg-gray-900 text-white"
@@ -189,9 +252,8 @@ export default function Navbar() {
                   aria-current={item.current ? "page" : undefined}
                 >
                   {item.name}
-                </a>
-              ))} */}
-              <PopOverMenuItem solutions={navItems?.computerAccessories} />
+                </div>
+              ))}
             </div>
           </Disclosure.Panel>
         </>

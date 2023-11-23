@@ -1,0 +1,5 @@
+.product_featured_set_card_container {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+}

@@ -1,0 +1,32 @@
+.shared-btn-primary-one-main-container {
+  background-color: transparent;
+  width: 100%;
+  max-width: 1400px;
+  margin: auto;
+  height: 60px;
+  text-align: center;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  position: relative;
+}
+.shared-btn-primary-one-main-container::before {
+  content: "";
+  width: 80%;
+  height: 5px;
+  background-color: #006464;
+  border-bottom: 2px solid #00dede;
+  border-radius: 6px;
+  position: absolute;
+  display: inline-block;
+  left: 10%;
+  bottom: 0;
+}
+
+.shared-btn-primary-one-text-holder {
+  font-size: 22px;
+  /* background-color: #00dede; */
+  /* color: var(--en-primary-title-color-one); */
+  color: #006464;
+}

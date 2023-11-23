@@ -1,0 +1,27 @@
+:root {
+  --en-primary-color: #006edc;
+  --en-secondary-color: #0f1f46;
+  --en-faded-color: #bbbbbb;
+  --en-warning-color: #ff0000;
+  --en-success-color: #00ff99;
+  --en-white-color: #ffffff;
+  --en-black-color: #000000;
+  /* background color */
+  --en-main-bg-primary: #1f2937;
+
+  /* bg:set one */
+  --en-bg-btn-primary: #1f2937;
+  --en-bg-btn-primary-hover: #07090c;
+
+  /* font:set one */
+  --en-font-btn-primary: #e5e7eb;
+  --en-font-btn-primary-hover: #fdfeff;
+
+  /* primary title: set one */
+  --en-primary-title-color-one: #006edc;
+
+  /* category card: set one */
+  --en-category-card-bg-color-one: #ffffff;
+  --en-category-card-border-color-one: #f5f5f5;
+  --en-category-card-border-text-color-one: #006edc;
+}
