@@ -1,4 +1,4 @@
-# live link -> [https://techtech-frontend.vercel.app/](https://techtech-frontend.vercel.app/)
+# live link -> [https://techtech-frontend.vercel.app/](https://techtech-frontend.vercel.app/){:target="\_blank" rel="noopener"}
 
 ## pages
 
